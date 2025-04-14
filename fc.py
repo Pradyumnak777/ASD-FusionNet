@@ -6,13 +6,9 @@ import pandas as pd
 import ipdb
 import re
 import pickle
+from aux_functions import extract_id
 
 folder_path = '/content/s3bucket/data/Projects/ABIDE/Outputs/cpac/filt_noglobal/rois_cc200' #these hold .1D time course files
-
-def extract_id(s):
-    match = re.search(r'0*([1-9]\d{4})', s)
-    return match.group(1) if match else None
-  
 
 def fc_invalid(folder_path):
   if not os.path.exists(folder_path):
@@ -23,7 +19,7 @@ def fc_invalid(folder_path):
 
   for f in os.listdir(folder_path):
     f_path = os.path.join(folder_path, f)
-    # Check if its a .1D file
+    # check if .1D file
     if not f.endswith('.1D'):
       print(f"Invalid file format: {f}")
       invalid_files.append(f)
