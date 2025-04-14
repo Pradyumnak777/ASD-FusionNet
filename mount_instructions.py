@@ -1,4 +1,3 @@
-import os
 
 '''
 # Setup Instructions (for WSL/Ubuntu)
@@ -59,4 +58,11 @@ ln -s /home/pajju/s3bucket s3bucket_shortcut
 ls -l
 # Output should include a line like:
 # s3bucket_shortcut -> /home/pajju/s3bucket
+
+##10. ignore this on git, as it doesnt need to be tracked.
+
+##11. optionally, launch vscode via wsl for better folder visibility and compatibilty.
+run (code .) in the wsl terminal to open the current directory in VSCode.
 '''
+
+#Mounting google drive
