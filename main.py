@@ -3,6 +3,8 @@ from utils.training import cross_validate_fusion
 import torch
 import pickle
 
+
+
 features_path = '/path/to/features.pkl'
 pheno_dict_path = '/path/to/pheno_dict.pkl'
 label_dict_path = '/path/to/label_dict.pkl'
@@ -24,5 +26,6 @@ cross_validate_fusion(
     device=device,
     n_splits=5,
     epochs=100,
-      eval_only= True
+    eval_only= True
 )
+

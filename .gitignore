@@ -1,2 +1,4 @@
 s3bucket_shortcut
 *.json
+models/
+gdrive_link

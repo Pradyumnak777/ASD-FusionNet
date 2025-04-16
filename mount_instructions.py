@@ -48,7 +48,7 @@ cd /mnt/c/Users/Lenovo/OneDrive/ASD-BranchNet
 ## 8. Create a symbolic link to the mounted S3 bucket inside the working directory
 # This enables easier access to S3 content without changing directories
 
-ln -s /home/pajju/s3bucket s3bucket_shortcut
+ln -s <path of actual> <path of symlink>
 
 ## You should now see 's3bucket_shortcut' inside your project directory.
 # This can be accessed from scripts as a relative path, e.g., 's3bucket_shortcut/my_file.csv'
@@ -66,3 +66,16 @@ run (code .) in the wsl terminal to open the current directory in VSCode.
 '''
 
 #Mounting google drive
+'''
+sudo apt update
+sudo apt install rclone -y
+
+follow subsequent steps..
+
+for project-2, root-folder-id -> 19_-IejK1SlQEzX1mADeu4ks05phhlRQo
+
+mkdir -p ~/gdrive
+chmod 775 ~/gdrive
+rclone mount drive: ~/gdrive --vfs-cache-mode full
+(keep this running and perform other tasks in a new terminal)
+'''
