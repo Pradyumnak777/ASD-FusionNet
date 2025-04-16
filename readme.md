@@ -10,5 +10,5 @@ We have used two modalities - fMRI (functional connectivity) and Phenotypic (fro
 
 The model takes these 2 branches and fuses their embeddings, before passing it to the classifier.
 
-Our model has achieved a reasonable accuracy of 71.46% over a 5-fold cross validation. This is on par with most method and papers that have been published over the last few years (2020-24).
+Our model has achieved a reasonable accuracy of 71.46% over a 5-fold cross validation. This is on par with most methods and papers that have been published over the last few years (2020-24).
 
