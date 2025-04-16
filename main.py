@@ -3,6 +3,7 @@ from fc import fc_invalid, get_feature_vector_full
 from pheno import get_pheno_invalid, get_pheno_dict
 from aux_functions import get_label_dict
 import torch
+import pickle
 
 #get the invalid files from functional connectivity features
 fc_path = '/mnt/c/Users/Lenovo/OneDrive/ASD-BranchNet/s3bucket_shortcut/data/Projects/ABIDE/Outputs/cpac/filt_noglobal'
@@ -23,20 +24,20 @@ label_dict = get_label_dict(pheno_feature_dict)
 
 
 #load readymade features- (for demonstration this can be used) NAMES AND GDRIVE LOCATION WILL VARY, DEPENDING ON WHERE YOU SET UP
-'''
-features_path = 'gdrive_link/final_feature_dict_proj2.pkl'
-pheno_dict_path = 'gdrive_link/final_pheno_dict.pkl'
-label_dict_path = 'gdrive_link/final_label_dict.pkl'
 
-with open(features_path, 'rb') as f:
-    new_features = pickle.load(f)
+# features_path = 'gdrive_link/final_feature_dict_proj2.pkl'
+# pheno_dict_path = 'gdrive_link/final_pheno_dict.pkl'
+# label_dict_path = 'gdrive_link/final_label_dict.pkl'
 
-with open(pheno_dict_path, 'rb') as f:
-    new_pheno_dict = pickle.load(f)
+# with open(features_path, 'rb') as f:
+#     fc_feature_dict = pickle.load(f)
 
-with open(label_dict_path, 'rb') as f:
-    label_dict = pickle.load(f)
-'''
+# with open(pheno_dict_path, 'rb') as f:
+#     pheno_feature_dict = pickle.load(f)
+
+# with open(label_dict_path, 'rb') as f:
+#     label_dict = pickle.load(f)
+
 
 #now, pass this to the cross-validate function
 
