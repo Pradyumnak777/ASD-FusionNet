@@ -9,7 +9,7 @@ def extract_id(s):
 
 def get_label_dict(dict): #any dict -> features/pheno can be passed as long as both have been filtered
     label_dict = {}
-    csv_path = '/content/s3bucket/data/Projects/ABIDE/Phenotypic_V1_0b_preprocessed.csv'
+    csv_path = '/mnt/c/Users/Lenovo/OneDrive/ASD-BranchNet/s3bucket_shortcut/data/Projects/ABIDE/Phenotypic_V1_0b_preprocessed.csv'
     df = pd.read_csv(csv_path)
     for k,v in dict.items():
         # ipdb.set_trace()

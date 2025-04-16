@@ -146,7 +146,7 @@ def evaluate(model, dataloader, device):
 
 def cross_validate_fusion(conn_dict, pheno_dict, label_dict,
                           device='cuda', n_splits=5, epochs=20,
-                          save_dir='/content/drive/MyDrive/project-2', eval_only=False):
+                          save_dir='/mnt/c/Users/Lenovo/OneDrive/ASD-BranchNet/gdrive_link', eval_only=False):
     os.makedirs(save_dir, exist_ok=True)
 
     dataset = FusionDataset(conn_dict, pheno_dict, label_dict)

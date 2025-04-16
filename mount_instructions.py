@@ -1,37 +1,37 @@
 
 '''
-# Setup Instructions (for WSL/Ubuntu)
-## 1. Create and activate the Conda environment
+# setup instructions (for wsl/ubuntu)
+## 1. create and activate the conda environment
 
 conda create --name <<name>> python=3.10 -y
-conda activate <<>name>>
+conda activate <<name>>
 
-## 2. Install system dependencies (required for mounting S3 buckets)
-# These are NOT Conda packages — install them using apt
+## 2. install system dependencies (needed for mounting s3 buckets)
+# these are NOT conda packages — install them using apt
 
 sudo apt update
 sudo apt install -y s3fs libfuse-dev
 
-## 3. Configure AWS credentials for s3fs
-# Replace YOUR_ACCESS_KEY and YOUR_SECRET_KEY with actual values
+## 3. configure aws credentials for s3fs
+# replace YOUR_ACCESS_KEY and YOUR_SECRET_KEY with actual values
 
 echo "YOUR_ACCESS_KEY:YOUR_SECRET_KEY" > ~/.passwd-s3fs
 chmod 600 ~/.passwd-s3fs
 
-## 4. Enable 'allow_other' option for s3fs (only needs to be done once)
-# This allows s3fs-mounted folders to be accessible to your user
+## 4. enable 'allow_other' option for s3fs (only needs to be done once)
+# this lets s3fs-mounted folders be accessible to your user
 
 sudo nano /etc/fuse.conf
-# In the opened file, uncomment the following line:
+# in the opened file, uncomment this line:
 # user_allow_other
-# Save and exit (Ctrl + O → Enter, then Ctrl + X)
+# save and exit (Ctrl + O → Enter, then Ctrl + X)
 
-## 5. Create the mount point inside WSL (DO NOT use /mnt/c/... for s3fs)
+## 5. create the mount point inside wsl (don’t use /mnt/c/... for s3fs)
 
 mkdir -p ~/s3bucket
 
-## 6. Mount the S3 bucket using s3fs
-# Replace 'fcp-indi' with your actual bucket name
+## 6. mount the s3 bucket using s3fs
+# replace 'fcp-indi' with your actual bucket name
 
 s3fs fcp-indi ~/s3bucket \
     -o passwd_file=~/.passwd-s3fs \
@@ -39,30 +39,30 @@ s3fs fcp-indi ~/s3bucket \
     -o url=https://s3.amazonaws.com \
     -o allow_other
 
-##  S3 bucket is now mounted at ~/s3bucket.
+## s3 bucket is now mounted at ~/s3bucket.
 
-## 7. Navigate to the project directory (if not already there)
+## 7. navigate to the project directory (if not already there)
 
 cd /mnt/c/Users/Lenovo/OneDrive/ASD-BranchNet
 
-## 8. Create a symbolic link to the mounted S3 bucket inside the working directory
-# This enables easier access to S3 content without changing directories
+## 8. create a symbolic link to the mounted s3 bucket inside the working directory
+# this makes it easier to access s3 content without switching directories
 
 ln -s <path of actual> <path of symlink>
 
-## You should now see 's3bucket_shortcut' inside your project directory.
-# This can be accessed from scripts as a relative path, e.g., 's3bucket_shortcut/my_file.csv'
+## you should now see 's3bucket_shortcut' inside your project directory.
+# you can access it from scripts as a relative path, e.g., 's3bucket_shortcut/my_file.csv'
 
-## 9. Confirm symlink creation
+## 9. confirm symlink creation
 
 ls -l
-# Output should include a line like:
-# s3bucket_shortcut -> /home/pajju/s3bucket
+# output should include a line like:
+# s3bucket_shortcut -> /home/<<user_name>>/s3bucket
 
-##10. ignore this on git, as it doesnt need to be tracked.
+## 10. ignore this on git, it doesn’t need to be tracked.
 
-##11. optionally, launch vscode via wsl for better folder visibility and compatibilty.
-run (code .) in the wsl terminal to open the current directory in VSCode.
+## 11. optionally, launch vscode via wsl for better folder visibility and compatibility.
+run (code .) in the wsl terminal to open the current directory in vscode.
 '''
 
 #Mounting google drive
@@ -72,7 +72,7 @@ sudo apt install rclone -y
 
 follow subsequent steps..
 
-for project-2, root-folder-id -> 19_-IejK1SlQEzX1mADeu4ks05phhlRQo
+root-folder-id -> <<get from URL of the folder in gdrive>>
 
 mkdir -p ~/gdrive
 chmod 775 ~/gdrive

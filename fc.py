@@ -1,4 +1,4 @@
-#checking all valid fmri scans
+#functions for working with fMRI data
 
 import os
 import numpy as np
@@ -8,7 +8,7 @@ import re
 import pickle
 from aux_functions import extract_id
 
-folder_path = '/content/s3bucket/data/Projects/ABIDE/Outputs/cpac/filt_noglobal/rois_cc200' #these hold .1D time course files
+# folder_path = '/content/s3bucket/data/Projects/ABIDE/Outputs/cpac/filt_noglobal/rois_cc200' #these hold .1D time course files
 
 def fc_invalid(folder_path):
   if not os.path.exists(folder_path):
@@ -21,7 +21,7 @@ def fc_invalid(folder_path):
     f_path = os.path.join(folder_path, f)
     # check if .1D file
     if not f.endswith('.1D'):
-      print(f"Invalid file format: {f}")
+      print(f"invalid file format: {f}")
       invalid_files.append(f)
       continue
 
@@ -29,12 +29,12 @@ def fc_invalid(folder_path):
       data = np.loadtxt(f_path, dtype=np.float32)
       df = pd.DataFrame(data)
       if df.isna().any().any():
-        print("Missing values detected in fMRI time series", f)
+        print("missing values detected in fMRI time series", f)
         missing_rois = df.isna().sum(axis=1)
         print("ROIs with missing values:", df.index[missing_rois].tolist())
         invalid_files.append(f)
     except Exception as e:
-      print(f"Error loading file {f}: {e}")
+      print(f"error in loading file {f}: {e}")
       invalid_files.append(f)
       
   for i in range(len(invalid_files)):
@@ -108,7 +108,7 @@ def trim_corr_mat(mat):
   extreme_pairs = list(zip(extreme_coords[0], extreme_coords[1]))
   return extreme_pairs
 
-def get_fc_feature_vector(invalid_files, pheno_invalid, extreme_pairs):
+def get_fc_feature_vector_compressed(invalid_files, pheno_invalid, extreme_pairs):
   features = {}
 
   for f in os.listdir(folder_path):
@@ -143,3 +143,22 @@ def get_fc_feature_vector(invalid_files, pheno_invalid, extreme_pairs):
   #     pickle.dump(features, f)
   return features
 
+
+#the below function is used for generating our feature vector
+def get_feature_vector_full(fc_path, invalid_files, pheno_invalid):
+  # c = 0
+  features = {}
+  for f in os.listdir(fc_path):
+    if extract_id(f) in invalid_files or extract_id(f) in pheno_invalid:
+      continue
+    f_path = os.path.join(folder_path, f)
+    data = np.loadtxt(f_path,dtype=np.float32)
+    df = pd.DataFrame(data)
+    correlation_matrix = df.corr(method='pearson').values
+    upper_tri_indices = np.triu_indices_from(correlation_matrix, k=1)
+    upper_tri_values = correlation_matrix[upper_tri_indices]  # shape will be (19900,)
+    features[extract_id(f)] = upper_tri_values
+
+    # c+=1
+  
+  return features
