@@ -151,7 +151,7 @@ def get_feature_vector_full(fc_path, invalid_files, pheno_invalid):
   for f in os.listdir(fc_path):
     if extract_id(f) in invalid_files or extract_id(f) in pheno_invalid:
       continue
-    f_path = os.path.join(folder_path, f)
+    f_path = os.path.join(fc_path, f)
     data = np.loadtxt(f_path,dtype=np.float32)
     df = pd.DataFrame(data)
     correlation_matrix = df.corr(method='pearson').values
