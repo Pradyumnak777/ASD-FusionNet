@@ -11,35 +11,28 @@ from aux_functions import extract_id
 # folder_path = '/content/s3bucket/data/Projects/ABIDE/Outputs/cpac/filt_noglobal/rois_cc200' #these hold .1D time course files
 
 def fc_invalid(folder_path):
-  if not os.path.exists(folder_path):
-    print(f"Folder {folder_path} does not exist.")
-    return []
-
   invalid_files = []
-
   for f in os.listdir(folder_path):
+    mask = np.ones((200, 200), dtype=bool) #to deal with nan correlation values
     f_path = os.path.join(folder_path, f)
-    # check if .1D file
-    if not f.endswith('.1D'):
-      print(f"invalid file format: {f}")
+    data = np.loadtxt(f_path,dtype=np.float32)
+    # ipdb.set_trace()
+    df = pd.DataFrame(data)
+    if df.isna().any().any():
+      print("Missing values detected in fMRI time series!", f)
+      missing_rois = df.isna().sum(axis=1)
+      print("ROIs with missing values:", df.index[missing_rois].tolist())
+      break
+    # calc the pearson correlation-matrix for each .1D file
+    # ipdb.set_trace()
+    correlation_matrix = df.corr(method='pearson') #now, correlation_matrix is not a df but a np array
+    correlation_np = correlation_matrix.to_numpy()
+    if np.isnan(correlation_np).any():
       invalid_files.append(f)
-      continue
-
-    try:
-      data = np.loadtxt(f_path, dtype=np.float32)
-      df = pd.DataFrame(data)
-      if df.isna().any().any():
-        print("missing values detected in fMRI time series", f)
-        missing_rois = df.isna().sum(axis=1)
-        print("ROIs with missing values:", df.index[missing_rois].tolist())
-        invalid_files.append(f)
-    except Exception as e:
-      print(f"error in loading file {f}: {e}")
-      invalid_files.append(f)
-      
+    
   for i in range(len(invalid_files)):
     invalid_files[i] = extract_id(invalid_files[i])
-
+    
   return invalid_files
 
 
