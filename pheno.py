@@ -38,11 +38,10 @@ def get_pheno_dict(initial_pheno_dict, pheno_invalid, invalid_files):
     sub_ids = list(initial_pheno_dict.keys())
     pheno_values = np.array([initial_pheno_dict[k] for k in sub_ids])  # shape: (n_subjects, 2)
 
-    # Step 2: Normalize using StandardScaler (mean=0, std=1)
+    # normalize
     scaler = StandardScaler()
     normalized_pheno = scaler.fit_transform(pheno_values)
 
-    # Step 3: Reassign the normalized values back to the dictionary
     normalized_pheno_dict = {sub_ids[i]: normalized_pheno[i].tolist() for i in range(len(sub_ids))}
     
     new_pheno_dict = {}
