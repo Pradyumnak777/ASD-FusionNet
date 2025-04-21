@@ -7,7 +7,7 @@ import pickle
 
 #get the invalid files from functional connectivity features
 fc_path = '/mnt/c/Users/Lenovo/OneDrive/ASD-BranchNet/s3bucket_shortcut/data/Projects/ABIDE/Outputs/cpac/filt_noglobal'
-fc_invalid = fc_invalid(fc_path)
+fc_invalid_lst = fc_invalid(fc_path)
 
 #get invalid files from phenotypic feature group - [VIQ, PIQ, func_mean_fd, func_perc_fd, func_num_fd, func_quality]
 pheno_invalid, initial_pheno_dict = get_pheno_invalid() # the file path is stored within the function itself, no need to parse
