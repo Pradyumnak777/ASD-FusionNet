@@ -13,10 +13,10 @@ fc_invalid_lst = fc_invalid(fc_path)
 pheno_invalid, initial_pheno_dict = get_pheno_invalid() # the file path is stored within the function itself, no need to parse
 
 #now, extract 19900 features per subject frmo the original 40000 by considering only the upper triangle of the matrix
-fc_feature_dict = get_feature_vector_full(fc_path, fc_invalid, pheno_invalid)
+fc_feature_dict = get_feature_vector_full(fc_path, fc_invalid_lst, pheno_invalid)
 
 #get the phenotypic features
-pheno_feature_dict = get_pheno_dict(initial_pheno_dict, pheno_invalid, fc_invalid)
+pheno_feature_dict = get_pheno_dict(initial_pheno_dict, pheno_invalid, fc_invalid_lst)
 
 #now generate the label dict, any of the above 2 dictionaries can be passed(as we have already used common keys)
 label_dict = get_label_dict(pheno_feature_dict)
